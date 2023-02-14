@@ -97,12 +97,30 @@
   </div>
 
 <script>
-
-//Create variable to hold the last checked box, then the new one
   const checkBoxes = document.querySelectorAll('input');
-  const lastCheckedBox = document
+  let lastChecked;
 
-  checkBoxes.addEventListener('mousedown', console.log('You clicked'));
+  function handleCheck(e) {
+    let inBetween = false;
+
+    if(e.shiftKey && lastChecked.checked) {
+      checkBoxes.forEach(checkbox => {
+        if(checkbox == this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        };
+
+        if(inBetween) {
+          checkbox.checked = true;
+        }
+      })
+    }
+    
+    lastChecked = this;
+  };
+
+checkBoxes.forEach(checkBox => checkBox.addEventListener('click', handleCheck));
+
+  
   
 
 </script>
